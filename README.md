@@ -117,11 +117,7 @@ Se configuró Cloud NAT para permitir que la VM de Base de Datos descargue paque
 
 # IP Pública del Servidor Web
 
-Agregar aquí la IP cuando finalices el proyecto.
-
-Ejemplo:
-
-34.xxx.xxx.xxx
+[34.58.73.106](http://34.58.73.106)
 
 ---
 
