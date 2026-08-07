@@ -1,128 +1,207 @@
 # Cloud-Ready Ops
 
-Trabajo Final Integrador — Arquitectura web de tres capas (Red, Cómputo y Base de Datos) desplegada en la nube pública, simulando la entrega técnica a un cliente corporativo.
+## Final Integrative Project — Three-Tier Cloud Web Architecture
 
-# Arquitectura
+**Cloud-Ready Ops** is a final integrative project that implements a **three-tier web architecture** deployed in a public cloud environment.
 
-La arquitectura está compuesta por:
+The project simulates a **technical solution delivered to a corporate client**, focusing on network design, compute resources, database infrastructure, security, and connectivity.
 
-- VPC personalizada
-- Subred pública
-- Subred privada
-- Servidor Web Ubuntu + Nginx
-- Servidor de Base de Datos Ubuntu + MySQL
-- Firewall
-- Cloud NAT para acceso a Internet desde la subred privada
+The architecture is divided into three main layers:
 
----
-
-
-# Configuración de Red
-
-VPC
-
-cloud-ready-vpc
-
-CIDR
-
-10.0.0.0/16
-
-Subred Pública
-
-10.0.1.0/24
-
-Subred Privada
-
-10.0.2.0/24
+| Layer        | Component                                               | Purpose                                                   |
+| ------------ | ------------------------------------------------------- | --------------------------------------------------------- |
+| **Network**  | VPC, Public Subnet, Private Subnet, Firewall, Cloud NAT | Provides network connectivity, segmentation, and security |
+| **Compute**  | Ubuntu Web Server + Nginx                               | Hosts and serves the web application                      |
+| **Database** | Ubuntu Database Server + MySQL                          | Stores and manages application data                       |
 
 ---
 
-# Reglas Firewall
+# Architecture Overview
 
-HTTP
+The infrastructure consists of the following components:
 
-Puerto 80
+| Component           | Description                                                                                                    |
+| ------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **Custom VPC**      | Isolated virtual network for all cloud resources                                                               |
+| **Public Subnet**   | Hosts the web server and allows controlled Internet access                                                     |
+| **Private Subnet**  | Hosts the database server without a public IP address                                                          |
+| **Web Server**      | Ubuntu 22.04 running Nginx                                                                                     |
+| **Database Server** | Ubuntu 22.04 running MySQL                                                                                     |
+| **Firewall**        | Controls inbound and internal network traffic                                                                  |
+| **Cloud NAT**       | Allows private resources to access the Internet for outbound connections without requiring public IP addresses |
 
-Origen
+### Traffic Flow
 
-0.0.0.0/0
+The architecture follows a controlled traffic flow:
 
-SSH
+**Internet → Firewall → Public Subnet → Web Server → Private Subnet → Database Server**
 
-Puerto 22
+For outbound Internet access from the private subnet:
 
-Origen
+**Database Server → Cloud NAT → Internet**
 
-0.0.0.0/0
-
-MySQL
-
-Puerto 3306
-
-Origen
-
-10.0.1.0/24
-
----
-
-# Servidor Web
-
-Sistema Operativo
-
-Ubuntu 22.04
-
-Servidor Web
-
-Nginx
-
-Página
-
-index.html
+This design improves network segmentation by keeping the database server isolated from direct Internet access.
 
 ---
 
-# Base de Datos
+# Network Configuration
 
-Motor
+The following table summarizes the main network configuration:
 
-MySQL
+| Resource           | Configuration     |
+| ------------------ | ----------------- |
+| **VPC Name**       | `cloud-ready-vpc` |
+| **VPC CIDR**       | `10.0.0.0/16`     |
+| **Public Subnet**  | `10.0.1.0/24`     |
+| **Private Subnet** | `10.0.2.0/24`     |
 
-Tabla
+### Network Segmentation
 
-Empleados
+| Subnet             | CIDR          | Main Resource   | Internet Exposure                  |
+| ------------------ | ------------- | --------------- | ---------------------------------- |
+| **Public Subnet**  | `10.0.1.0/24` | Web Server      | Controlled inbound/outbound access |
+| **Private Subnet** | `10.0.2.0/24` | Database Server | No public IP                       |
+
+Network segmentation separates the web-facing infrastructure from the database layer, reducing the database's exposure to external traffic.
+
+---
+
+# Firewall Rules
+
+The firewall was configured to allow only the traffic required by the architecture.
+
+| Rule      | Protocol |   Port | Source        | Purpose                                                |
+| --------- | -------- | -----: | ------------- | ------------------------------------------------------ |
+| **HTTP**  | TCP      |   `80` | `0.0.0.0/0`   | Allows users to access the web server                  |
+| **SSH**   | TCP      |   `22` | `0.0.0.0/0`   | Allows remote administration                           |
+| **MySQL** | TCP      | `3306` | `10.0.1.0/24` | Allows the web server to communicate with the database |
+
+### Security Considerations
+
+The MySQL port is restricted to the **public subnet CIDR** rather than being exposed to the entire Internet.
+
+The database server does not require a public IP address because it can communicate internally with the web server and use **Cloud NAT** for outbound Internet access.
+
+> **Note:** For a production environment, SSH access should preferably be restricted to trusted administrator IP addresses instead of allowing `0.0.0.0/0`.
+
+---
+
+# Web Server
+
+The web tier was deployed on an Ubuntu virtual machine running Nginx.
+
+| Component            | Configuration |
+| -------------------- | ------------- |
+| **Operating System** | Ubuntu 22.04  |
+| **Web Server**       | Nginx         |
+| **Web Content**      | `index.html`  |
+| **Network**          | Public Subnet |
+| **Protocol**         | HTTP          |
+| **Port**             | `80`          |
+
+The Nginx server is responsible for receiving HTTP requests and serving the project's web page to users.
+
+---
+
+# Database Server
+
+The database tier was deployed separately inside the private subnet.
+
+| Component            | Configuration         |
+| -------------------- | --------------------- |
+| **Operating System** | Ubuntu 22.04          |
+| **Database Engine**  | MySQL                 |
+| **Network**          | Private Subnet        |
+| **Database Table**   | `Employees`           |
+| **Database Access**  | Internal network only |
+
+The database server stores application data and is intentionally isolated from direct Internet access.
 
 ---
 
 # Cloud NAT
 
-Se configuró Cloud NAT para permitir que la VM de Base de Datos descargue paquetes sin asignarle una IP pública.
+**Cloud NAT** was configured to provide outbound Internet connectivity to resources located in the private subnet.
+
+The database VM can therefore:
+
+* Download software packages and updates.
+* Connect to external services when required.
+* Access the Internet for outbound connections.
+* Operate without a public IP address.
+
+### NAT Traffic Flow
+
+```text
+Private Database VM
+        │
+        ▼
+    Cloud NAT
+        │
+        ▼
+    Internet
+```
+
+Cloud NAT provides **outbound connectivity** but does not make the private database server directly reachable from the public Internet.
 
 ---
 
-# Pruebas realizadas
+# Connectivity and Validation Tests
 
-✔ Acceso HTTP
+Several tests were performed to validate the architecture:
 
-✔ Conectividad SSH
+| Test                       | Result   | Purpose                                   |
+| -------------------------- | -------- | ----------------------------------------- |
+| **HTTP Access**            | ✔ Passed | Verified that the web server is reachable |
+| **SSH Connectivity**       | ✔ Passed | Verified remote server administration     |
+| **VM-to-VM Communication** | ✔ Passed | Verified internal network connectivity    |
+| **MySQL Installation**     | ✔ Passed | Verified database server configuration    |
+| **Database Creation**      | ✔ Passed | Verified MySQL functionality              |
+| **Record Insertion**       | ✔ Passed | Verified data persistence                 |
 
-✔ Comunicación entre las VMs
-
-✔ Instalación de MySQL
-
-✔ Creación de Base de Datos
-
-✔ Inserción de registros
-
----
-
-# IP Pública del Servidor Web
-
-[34.58.73.106](http://34.58.73.106)
+These tests confirmed the basic functionality and connectivity of the three-tier architecture.
 
 ---
 
-# Autor
+# Public IP Address
 
-Vanina Candelaria Sulca
+The web server was assigned the following public IP address:
 
-Ingeniería en Telecomunicaciones
+**`34.58.73.106`**
+
+The web application can be accessed through:
+
+**http://34.58.73.106**
+
+---
+
+# Project Summary
+
+The **Cloud-Ready Ops** project demonstrates the implementation of a basic but scalable **three-tier cloud architecture** using network segmentation, virtual machines, Nginx, MySQL, firewall rules, and Cloud NAT.
+
+The architecture follows the principle of separating responsibilities between the **network, web, and database layers**, while reducing unnecessary exposure of internal resources.
+
+### Key Technologies
+
+| Category                  | Technology               |
+| ------------------------- | ------------------------ |
+| **Cloud Networking**      | VPC                      |
+| **Network Segmentation**  | Public & Private Subnets |
+| **Security**              | Firewall Rules           |
+| **Web Server**            | Nginx                    |
+| **Operating System**      | Ubuntu 22.04             |
+| **Database**              | MySQL                    |
+| **Outbound Connectivity** | Cloud NAT                |
+| **Web Protocol**          | HTTP                     |
+| **Network Protocol**      | TCP/IP                   |
+
+---
+
+# Author
+
+**Vanina Candelaria Sulca**
+
+**Telecommunications Engineering**
+
+**Cloud-Ready Ops — Final Integrative Project**
+
