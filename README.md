@@ -115,6 +115,8 @@ The database tier was deployed separately inside the private subnet.
 | **Database Table**   | `Employees`           |
 | **Database Access**  | Internal network only |
 
+![Evidence of Database Configuration](Project_Evidence/evidence_database.png)
+
 The database server stores application data and is intentionally isolated from direct Internet access.
 
 ---
