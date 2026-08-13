@@ -163,6 +163,8 @@ Several tests were performed to validate the architecture:
 
 These tests confirmed the basic functionality and connectivity of the three-tier architecture.
 
+![Connection Validation](Project_Evidence/Web Server to Private Database Connection Validation.png)
+
 ---
 
 # Public IP Address
