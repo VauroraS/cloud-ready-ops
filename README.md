@@ -175,6 +175,8 @@ The web application can be accessed through:
 
 **http://34.58.73.106**
 
+![Web page](Project_Evidence/Web_page.png)
+
 ---
 
 # Project Summary
