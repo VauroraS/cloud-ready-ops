@@ -163,6 +163,8 @@ Several tests were performed to validate the architecture:
 
 These tests confirmed the basic functionality and connectivity of the three-tier architecture.
 
+![Validación de Conexión](Project_Evidence/Connection_Validation.png)
+
 ---
 
 # Public IP Address
