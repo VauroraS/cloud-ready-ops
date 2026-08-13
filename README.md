@@ -171,13 +171,12 @@ These tests confirmed the basic functionality and connectivity of the three-tier
 
 The web server was assigned the following public IP address:
 
-**`34.58.73.106`**
+**`136.114.239.32`**
 
 The web application can be accessed through:
 
-**http://34.58.73.106**
+**http://136.114.239.32/**
 
-![Web page](Project_Evidence/Web_page.png)
 
 ---
 
