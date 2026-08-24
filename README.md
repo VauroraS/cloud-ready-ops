@@ -167,13 +167,11 @@ These tests confirmed the basic functionality and connectivity of the three-tier
 
 ---
 
-# Public IP Address
+# Web Application Content
 
-The web server was assigned the following public IP address:
+The `index.html` file served by Nginx displays a personal CV page, used as sample content to demonstrate that the web tier is correctly serving HTTP requests from the public subnet
 
-**`34.45.121.242`**
-
-The web application can be accessed through:
+The page can be accessed directly at:
 
 **http://34.45.121.242/**
 
