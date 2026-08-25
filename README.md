@@ -34,11 +34,7 @@ The infrastructure consists of the following components:
 
 The architecture follows a controlled traffic flow:
 
-**Internet → Firewall → Public Subnet → Web Server → Private Subnet → Database Server**
-
-For outbound Internet access from the private subnet:
-
-**Database Server → Cloud NAT → Internet**
+![Architecture](Docs/Cloud_Architecture.jpg)
 
 This design improves network segmentation by keeping the database server isolated from direct Internet access.
 
