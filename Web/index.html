@@ -3,283 +3,662 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vanina Sulca - CV | Telecom & Data Analyst</title>
-    <meta name="description" content="CV de Vanina Sulca, Ingeniera en Telecomunicaciones y Analista de Datos.">
-    <meta property="og:title" content="Vanina Sulca - CV | Telecom & Data Analyst">
-    <meta property="og:description" content="Ingeniera en Telecomunicaciones | Analista de Datos | Python, SQL, Power BI">
+    <title>Vanina Sulca | Portfolio</title>
+    <meta name="description" content="Portfolio de Vanina Sulca - Ingeniera en Telecomunicaciones, Analista de Datos y Desarrolladora de Software.">
+    <meta property="og:title" content="Vanina Sulca | Portfolio">
+    <meta property="og:description" content="Telecom Engineer | Data Analyst | Python, SQL, Power BI, Networks">
     <meta property="og:type" content="website">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-            color: #1f2937;
-            line-height: 1.5;
-            font-size: 13px;
+            background-color: #050a08;
+            color: #e8e8e3;
+            overflow-x: hidden;
         }
+
+        /* Gradients */
+        .gradient-text {
+            background: linear-gradient(135deg, #34d399, #2dd4bf, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-border {
+            background: linear-gradient(135deg, #34d399, #fbbf24);
+        }
+
+        /* Glass */
+        .glass {
+            background: rgba(15, 26, 21, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(52, 211, 153, 0.08);
+        }
+
+        /* Card hover */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(52, 211, 153, 0.15);
+            border-color: rgba(52, 211, 153, 0.25);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050a08; }
+        ::-webkit-scrollbar-thumb { background: #1a2e24; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #264033; }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .float { animation: float 4s ease-in-out infinite; }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(52, 211, 153, 0.12); }
+            50% { box-shadow: 0 0 40px rgba(52, 211, 153, 0.25); }
+        }
+        .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+        /* Nav */
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+            background: linear-gradient(90deg, #34d399, #fbbf24); transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        /* Tags */
+        .tag {
+            background: rgba(52, 211, 153, 0.08);
+            border: 1px solid rgba(52, 211, 153, 0.18);
+            color: #6ee7b7;
+        }
+
+        /* Lang button */
         .lang-btn {
-            background-color: white;
-            color: #4b5563;
+            background-color: rgba(15, 26, 21, 0.9);
+            color: #94a3b8;
             border: none;
             cursor: pointer;
         }
-        .lang-btn:hover { background-color: #f9fafb; }
-        .lang-btn.active { background-color: #2563eb; color: white; }
-        .lang-btn.active:hover { background-color: #1d4ed8; }
+        .lang-btn:hover { background-color: rgba(52, 211, 153, 0.1); color: #e8e8e3; }
+        .lang-btn.active { background-color: #059669; color: white; }
+        .lang-btn.active:hover { background-color: #047857; }
 
+        /* Print */
         @media print {
             @page { margin: 0.8cm; size: A4; }
             body {
-                background-color: white;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
+                background: white !important;
+                color: #1f2937 !important;
                 font-size: 11.5px;
                 line-height: 1.35;
             }
-            .no-print { display: none !important; }
-            .print-container {
-                max-width: 100% !important;
-                padding: 0 !important;
-                box-shadow: none !important;
-                border-radius: 0 !important;
-            }
-            section, article, .avoid-break { break-inside: avoid; }
+            .no-print, nav, #hero, #projects, #contact, footer { display: none !important; }
+            #cv { display: block !important; background: white !important; padding: 0 !important; }
+            #cv .glass { background: white !important; border: none !important; backdrop-filter: none !important; box-shadow: none !important; }
+            #cv section { border: none !important; }
+            #cv h3 { border-left: 3px solid #059669 !important; color: #1f2937 !important; }
+            #cv h4, #cv h5 { color: #1f2937 !important; }
+            #cv h4 span { color: #059669 !important; }
+            #cv article { border: none !important; }
+            #cv .rounded-2xl { border-radius: 0 !important; }
+            #cv .shadow-2xl { box-shadow: none !important; }
+            #cv p, #cv li, #cv div, #cv span, #cv strong { color: #1f2937 !important; }
+            #cv strong { color: #111827 !important; }
+            #cv .text-slate-300, #cv .text-slate-400, #cv .text-slate-500 { color: #4b5563 !important; }
+            #cv .text-white { color: #1f2937 !important; }
+            #cv .bg-slate-800, #cv .bg-slate-800\/50 { background-color: #f3f4f6 !important; }
+            #cv .border-slate-700, #cv .border-slate-700\/50, #cv .border-slate-800 { border-color: #e5e7eb !important; }
+            section, article { break-inside: avoid; }
             h3, h4 { break-after: avoid; }
-            .print-pb-0 { padding-bottom: 0 !important; }
-            .print-mb-0 { margin-bottom: 0 !important; }
-            .print-text-xs { font-size: 10.5px !important; }
-            .print-leading-tight { line-height: 1.3 !important; }
         }
     </style>
 </head>
-<body class="antialiased py-4 px-3 sm:px-4 lg:px-6">
+<body>
 
-    <div class="max-w-[210mm] mx-auto">
-
-        <!-- Botones de control -->
-        <div class="flex flex-wrap justify-end items-center gap-2 mb-3 no-print">
-            <div class="flex rounded-lg shadow-sm overflow-hidden border border-gray-300" role="group" aria-label="Selector de idioma / Language selector">
-                <button id="btn-lang-es" onclick="setLanguage('es')" class="lang-btn px-3 py-1.5 text-xs font-semibold transition-colors duration-150" aria-pressed="true">🇦🇷 ES</button>
-                <button id="btn-lang-en" onclick="setLanguage('en')" class="lang-btn px-3 py-1.5 text-xs font-semibold transition-colors duration-150" aria-pressed="false">🇬🇧 EN</button>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-emerald-500/5">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between h-16">
+                <a href="#hero" class="text-xl font-bold gradient-text tracking-tight">VS</a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#hero" class="nav-link text-sm font-medium text-slate-400 hover:text-emerald-300 transition-colors">
+                        <span class="lang-es">Inicio</span><span class="lang-en hidden">Home</span>
+                    </a>
+                    <a href="#cv" class="nav-link text-sm font-medium text-slate-400 hover:text-emerald-300 transition-colors">
+                        <span class="lang-es">CV</span><span class="lang-en hidden">Resume</span>
+                    </a>
+                    <a href="#projects" class="nav-link text-sm font-medium text-slate-400 hover:text-emerald-300 transition-colors">
+                        <span class="lang-es">Proyectos</span><span class="lang-en hidden">Projects</span>
+                    </a>
+                    <a href="#contact" class="nav-link text-sm font-medium text-slate-400 hover:text-emerald-300 transition-colors">
+                        <span class="lang-es">Contacto</span><span class="lang-en hidden">Contact</span>
+                    </a>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="flex rounded-lg overflow-hidden border border-slate-700/50">
+                        <button id="btn-lang-es" onclick="setLanguage('es')" class="lang-btn px-3 py-1 text-xs font-semibold transition-colors" aria-pressed="true">
+                            <i class="fa-solid fa-globe-americas mr-1"></i> ES
+                        </button>
+                        <button id="btn-lang-en" onclick="setLanguage('en')" class="lang-btn px-3 py-1 text-xs font-semibold transition-colors" aria-pressed="false">
+                            <i class="fa-solid fa-globe mr-1"></i> EN
+                        </button>
+                    </div>
+                    <button onclick="window.print()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold py-1.5 px-3 rounded-lg transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span class="lang-es">PDF</span><span class="lang-en hidden">PDF</span>
+                    </button>
+                </div>
             </div>
-            <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1.5 px-3 rounded-lg shadow-sm transition-colors duration-150 flex items-center gap-1.5 text-xs">
-                <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
-                <span class="lang-es">Guardar como PDF</span>
-                <span class="lang-en hidden">Save as PDF</span>
-            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center relative pt-20">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-emerald-500/8 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/8 rounded-full blur-3xl"></div>
         </div>
 
-        <main class="bg-white shadow-lg rounded-xl p-5 sm:p-6 print-container">
-
-            <!-- ENCABEZADO -->
-            <header class="border-b-2 border-gray-200 pb-3 mb-4 avoid-break">
-                <h1 class="text-2xl font-bold text-gray-900 tracking-tight uppercase">Vanina Sulca</h1>
-                <h2 class="text-base text-blue-700 font-semibold mt-0.5 mb-2">
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <div class="animate-fade-in-up">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass mb-6 text-sm text-emerald-300 border border-emerald-500/10">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="lang-es">Disponible para nuevas oportunidades</span>
+                    <span class="lang-en hidden">Open to new opportunities</span>
+                </div>
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4">
+                    <span class="text-white">Vanina</span> <span class="gradient-text">Sulca</span>
+                </h1>
+                <p class="text-xl sm:text-2xl text-slate-400 mb-8 font-light">
                     <span class="lang-es">Ingeniera en Telecomunicaciones | Analista de Datos</span>
                     <span class="lang-en hidden">Telecommunications Engineer | Data Analyst</span>
-                </h2>
-                <div class="flex flex-wrap gap-y-1 gap-x-4 text-xs text-gray-600 font-medium">
-                    <span class="flex items-center gap-1"><i class="fa-solid fa-location-dot text-blue-500 text-[10px]" aria-hidden="true"></i> Salta, Argentina</span>
-                    <span class="flex items-center gap-1"><i class="fa-solid fa-phone text-blue-500 text-[10px]" aria-hidden="true"></i> +54 387 6848432</span>
-                    <span class="flex items-center gap-1"><i class="fa-solid fa-envelope text-blue-500 text-[10px]" aria-hidden="true"></i> <a href="mailto:svaninac@gmail.com" class="hover:text-blue-600 transition-colors">svaninac@gmail.com</a></span>
-                    <span class="flex items-center gap-1"><i class="fa-brands fa-linkedin text-blue-500 text-[10px]" aria-hidden="true"></i> <a href="https://www.linkedin.com/in/vaninacsulca" target="_blank" rel="noopener noreferrer" class="hover:text-blue-600 transition-colors">linkedin.com/in/vaninacsulca</a></span>
-                    <span class="flex items-center gap-1"><i class="fa-brands fa-github text-blue-500 text-[10px]" aria-hidden="true"></i> <a href="https://github.com/VauroraS" target="_blank" rel="noopener noreferrer" class="hover:text-blue-600 transition-colors">github.com/VauroraS</a></span>
+                </p>
+                <div class="flex flex-wrap justify-center gap-3 mb-10">
+                    <span class="tag px-3 py-1 rounded-full text-xs font-medium">Python</span>
+                    <span class="tag px-3 py-1 rounded-full text-xs font-medium">React</span>
+                    <span class="tag px-3 py-1 rounded-full text-xs font-medium">PostgreSQL</span>
+                    <span class="tag px-3 py-1 rounded-full text-xs font-medium">Power BI</span>
+                    <span class="tag px-3 py-1 rounded-full text-xs font-medium">Looker Studio</span>
+                    <span class="tag px-3 py-1 rounded-full text-xs font-medium">n8n</span>
+                    <span class="tag px-3 py-1 rounded-full text-xs font-medium">Mikrotik</span>
+                    <span class="tag px-3 py-1 rounded-full text-xs font-medium">OCI</span>
                 </div>
-            </header>
-
-            <!-- PERFIL PROFESIONAL -->
-            <section class="mb-4 avoid-break" aria-labelledby="resumen-heading">
-                <h3 id="resumen-heading" class="text-sm font-bold text-gray-900 uppercase tracking-wide border-l-4 border-blue-600 pl-2 mb-1.5">
-                    <span class="lang-es">Perfil Profesional</span>
-                    <span class="lang-en hidden">Professional Profile</span>
-                </h3>
-                <div class="lang-es text-gray-700 text-justify leading-snug text-[13px]">
-                    Ingeniera en Telecomunicaciones con experiencia en redes, infraestructura, análisis de datos y desarrollo de software. Trabajo con Python, SQL, Power BI y Looker Studio, combinando mi base técnica con una fuerte orientación hacia los datos y la automatización. Mi recorrido comenzó en el terreno realizando soporte y despliegues de redes en zonas urbanas, rurales y de alta complejidad. Posteriormente, incorporé herramientas analíticas en Guayerd, participando en proyectos que abarcaron desde la limpieza y transformación de datos hasta la construcción de dashboards. Actualmente, integro esta experiencia con el desarrollo de software como voluntaria en Undood, donde diseño, modelo y documento bases de datos relacionales (PostgreSQL) enfocadas en la escalabilidad. Mi principal interés está en conectar infraestructura, datos e IA, buscando transformar procesos técnicos en soluciones más eficientes y automatizadas.
+                <div class="flex justify-center gap-4">
+                    <a href="#projects" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 px-8 rounded-xl transition-all hover:scale-105 shadow-lg shadow-emerald-600/20">
+                        <span class="lang-es">Ver Proyectos</span><span class="lang-en hidden">View Projects</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/vaninacsulca" target="_blank" class="glass hover:bg-emerald-900/20 text-white font-semibold py-3 px-8 rounded-xl transition-all hover:scale-105 flex items-center gap-2 border border-emerald-500/10">
+                        <i class="fa-brands fa-linkedin text-lg"></i> LinkedIn
+                    </a>
                 </div>
-                <div class="lang-en hidden text-gray-700 text-justify leading-snug text-[13px]">
-                    Telecommunications Engineer with experience in networks, infrastructure, data analysis, and software development. I work with Python, SQL, Power BI, and Looker Studio, combining my technical background with a strong data-driven orientation. My path began in the field, providing support and deploying networks in urban, rural, and high-complexity areas. I later added analytical tools at Guayerd, working on projects ranging from data cleaning and transformation to building dashboards for decision-making. I now combine that experience with software development as a volunteer at Undood, where I design, model, and document relational databases (PostgreSQL) focused on scalability. My main interest is connecting infrastructure, data, and AI, aiming to turn technical processes into more efficient, automated solutions aligned with business needs.
+            </div>
+
+            <div class="mt-20 animate-fade-in-up delay-200">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="glass rounded-2xl p-4 text-center float" style="animation-delay: 0s;">
+                        <div class="text-2xl font-bold gradient-text">4+</div>
+                        <div class="text-xs text-slate-500 mt-1">
+                            <span class="lang-es">Años de Experiencia</span>
+                            <span class="lang-en hidden">Years Experience</span>
+                        </div>
+                    </div>
+                    <div class="glass rounded-2xl p-4 text-center float" style="animation-delay: 0.5s;">
+                        <div class="text-2xl font-bold gradient-text">8+</div>
+                        <div class="text-xs text-slate-500 mt-1">
+                            <span class="lang-es">Certificaciones</span>
+                            <span class="lang-en hidden">Certifications</span>
+                        </div>
+                    </div>
+                    <div class="glass rounded-2xl p-4 text-center float" style="animation-delay: 1s;">
+                        <div class="text-2xl font-bold gradient-text">3</div>
+                        <div class="text-xs text-slate-500 mt-1">
+                            <span class="lang-es">Títulos Universitarios</span>
+                            <span class="lang-en hidden">University Degrees</span>
+                        </div>
+                    </div>
+                    <div class="glass rounded-2xl p-4 text-center float" style="animation-delay: 1.5s;">
+                        <div class="text-2xl font-bold gradient-text">B2</div>
+                        <div class="text-xs text-slate-500 mt-1">
+                            <span class="lang-es">Inglés Certificado</span>
+                            <span class="lang-en hidden">English Certified</span>
+                        </div>
+                    </div>
                 </div>
-            </section>
+            </div>
+        </div>
+    </section>
 
-            <!-- EXPERIENCIA LABORAL -->
-            <section class="mb-4" aria-labelledby="experiencia-heading">
-                <h3 id="experiencia-heading" class="text-sm font-bold text-gray-900 uppercase tracking-wide border-l-4 border-blue-600 pl-2 mb-2">
-                    <span class="lang-es">Experiencia Laboral</span>
-                    <span class="lang-en hidden">Work Experience</span>
-                </h3>
+    <!-- CV Section -->
+    <section id="cv" class="py-20" style="background-color: #080f0c;">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="glass rounded-2xl p-6 sm:p-8 shadow-2xl">
+                <!-- Header CV -->
+                <header class="border-b border-slate-800 pb-4 mb-5 avoid-break">
+                    <h1 class="text-3xl font-bold text-white tracking-tight uppercase">Vanina Sulca</h1>
+                    <h2 class="text-lg text-emerald-400 font-semibold mt-1 mb-3">
+                        <span class="lang-es">Ingeniera en Telecomunicaciones | Analista de Datos</span>
+                        <span class="lang-en hidden">Telecommunications Engineer | Data Analyst</span>
+                    </h2>
+                    <div class="flex flex-wrap gap-y-1 gap-x-4 text-xs text-slate-400 font-medium">
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-location-dot text-emerald-500 text-[10px]"></i> Salta, Argentina</span>
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-phone text-emerald-500 text-[10px]"></i> +54 387 6848432</span>
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-envelope text-emerald-500 text-[10px]"></i> svaninac@gmail.com</span>
+                        <span class="flex items-center gap-1"><i class="fa-brands fa-linkedin text-emerald-500 text-[10px]"></i> linkedin.com/in/vaninacsulca</span>
+                        <span class="flex items-center gap-1"><i class="fa-brands fa-github text-emerald-500 text-[10px]"></i> github.com/VauroraS</span>
+                    </div>
+                </header>
 
-                <article class="mb-2.5 avoid-break">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-0.5 gap-0.5">
-                        <h4 class="text-[13px] font-bold text-gray-800">
-                            <span class="lang-es">Desarrolladora de Software (Voluntariado)</span>
-                            <span class="lang-en hidden">Software Developer (Volunteer)</span>
-                            <span class="text-blue-600 font-semibold text-[11px]"> — Undood Argentina</span>
-                        </h4>
-                        <span class="text-[11px] font-semibold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full whitespace-nowrap">
-                            <span class="lang-es">Abr 2026 - Presente</span>
-                            <span class="lang-en hidden">Apr 2026 - Present</span>
-                        </span>
-                    </div>
-                    <ul class="list-disc list-outside text-gray-700 text-[12px] leading-snug ml-4 lang-es">
-                        <li><strong>Diseñé y modelé</strong> la estructura de bases de datos relacionales utilizando PostgreSQL, enfocándome en asegurar la escalabilidad del sistema a largo plazo.</li>
-                        <li><strong>Elaboré documentación técnica exhaustiva</strong> sobre estructuras de datos y flujos del sistema para estandarizar el trabajo y prevenir cuellos de botella en el equipo de desarrollo.</li>
-                    </ul>
-                    <ul class="list-disc list-outside text-gray-700 text-[12px] leading-snug ml-4 lang-en hidden">
-                        <li><strong>Designed and modeled</strong> the relational database structure using PostgreSQL, focused on ensuring the system's long-term scalability.</li>
-                        <li><strong>Produced thorough technical documentation</strong> of data structures and system flows to standardize work and prevent bottlenecks in the development team.</li>
-                    </ul>
-                </article>
-
-                <article class="mb-2.5 avoid-break">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-0.5 gap-0.5">
-                        <h4 class="text-[13px] font-bold text-gray-800">
-                            <span class="lang-es">Analista de Datos</span>
-                            <span class="lang-en hidden">Data Analyst</span>
-                            <span class="text-blue-600 font-semibold text-[11px]"> — Guayerd</span>
-                        </h4>
-                        <span class="text-[11px] font-semibold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full whitespace-nowrap">
-                            <span class="lang-es">Ago 2024 – Nov 2024</span>
-                            <span class="lang-en hidden">Aug 2024 – Nov 2024</span>
-                        </span>
-                    </div>
-                    <ul class="list-disc list-outside text-gray-700 text-[12px] leading-snug ml-4 lang-es">
-                        <li><strong>Desarrollé procesos de ETL</strong> utilizando Python y SQL para recopilar, limpiar y analizar grandes volúmenes de datasets complejos, logrando identificar inconsistencias y optimizar la calidad de las fuentes.</li>
-                        <li><strong>Preparé análisis y visualizaciones interactivas</strong> en Power BI y Looker Studio, traduciendo métricas operativas críticas en <em>insights</em> directos para la toma de decisiones gerenciales.</li>
-                        <li><strong>Implementé herramientas de IA</strong> bajo metodologías ágiles para automatizar procesos de transformación de datos.</li>
-                    </ul>
-                    <ul class="list-disc list-outside text-gray-700 text-[12px] leading-snug ml-4 lang-en hidden">
-                        <li><strong>Built ETL processes</strong> using Python and SQL to collect, clean, and analyze large volumes of complex datasets, identifying inconsistencies and improving source data quality.</li>
-                        <li><strong>Prepared interactive analysis and visualizations</strong> in Power BI and Looker Studio, turning critical operational metrics into direct insights for management decision-making.</li>
-                        <li><strong>Implemented AI tools</strong> under agile methodologies to automate data transformation processes.</li>
-                    </ul>
-                </article>
-
-                <article class="mb-2.5 avoid-break">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-0.5 gap-0.5">
-                        <h4 class="text-[13px] font-bold text-gray-800">
-                            <span class="lang-es">Soporte Técnico Especializado</span>
-                            <span class="lang-en hidden">Specialized Technical Support</span>
-                            <span class="text-blue-600 font-semibold text-[11px]"> — ITeDA</span>
-                        </h4>
-                        <span class="text-[11px] font-semibold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full whitespace-nowrap">Mar 2024 – Jun 2024</span>
-                    </div>
-                    <ul class="list-disc list-outside text-gray-700 text-[12px] leading-snug ml-4 lang-es">
-                        <li><strong>Ejecuté tareas de gestión técnica y mantenimiento preventivo</strong> de infraestructura crítica, operando dentro de entornos multiculturales y de alta complejidad.</li>
-                        <li><strong>Implementé la sistematización de controles</strong> mediante la elaboración de planillas administrativas, asegurando el rigor técnico en un contexto de variables ambientales exigentes.</li>
-                    </ul>
-                    <ul class="list-disc list-outside text-gray-700 text-[12px] leading-snug ml-4 lang-en hidden">
-                        <li><strong>Executed technical management and preventive maintenance tasks</strong> for critical infrastructure, operating within multicultural and high-complexity environments.</li>
-                        <li><strong>Implemented control systematization</strong> through the development of administrative spreadsheets, ensuring technical rigor in a context of demanding environmental variables.</li>
-                    </ul>
-                </article>
-
-                <article class="avoid-break">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-0.5 gap-0.5">
-                        <h4 class="text-[13px] font-bold text-gray-800">
-                            <span class="lang-es">Soporte Técnico IT</span>
-                            <span class="lang-en hidden">IT Technical Support</span>
-                            <span class="text-blue-600 font-semibold text-[11px]"> — TECNOA S.R.L</span>
-                        </h4>
-                        <span class="text-[11px] font-semibold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full whitespace-nowrap">Feb 2021 – Oct 2022</span>
-                    </div>
-                    <ul class="list-disc list-outside text-gray-700 text-[12px] leading-snug ml-4 lang-es">
-                        <li><strong>Optimicé y configuré enlaces de red</strong> (incluyendo equipamiento especializado como Mimosa y Mikrotik) para resolver los requerimientos operativos de los usuarios.</li>
-                        <li><strong>Establecí canales de comunicación técnica formal</strong> para el <em>troubleshooting</em> y la coordinación eficiente de tareas entre distintos equipos de infraestructura.</li>
-                    </ul>
-                    <ul class="list-disc list-outside text-gray-700 text-[12px] leading-snug ml-4 lang-en hidden">
-                        <li><strong>Optimized and configured network links</strong> (including specialized equipment such as Mimosa and Mikrotik) to resolve users' operational requirements.</li>
-                        <li><strong>Established formal technical communication channels</strong> for <em>troubleshooting</em> and efficient task coordination between different infrastructure teams.</li>
-                    </ul>
-                </article>
-            </section>
-
-            <!-- EDUCACIÓN -->
-            <section class="mb-4 avoid-break" aria-labelledby="educacion-heading">
-                <h3 id="educacion-heading" class="text-sm font-bold text-gray-900 uppercase tracking-wide border-l-4 border-blue-600 pl-2 mb-2">
-                    <span class="lang-es">Educación Universitaria</span>
-                    <span class="lang-en hidden">University Education</span>
-                </h3>
-                <div class="space-y-1.5 text-gray-700 text-[12px]">
-                    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-0.5">
-                        <strong class="lang-es">Tec. Universitaria en Gestión de Infraestructura Cloud y DevOps</strong>
-                        <strong class="lang-en hidden">Tech. Degree in Cloud Infrastructure & DevOps Management</strong>
-                        <span class="text-[11px] text-gray-500 font-medium whitespace-nowrap"><span class="lang-es">2026 - En curso</span><span class="lang-en hidden">2026 - Ongoing</span></span>
-                    </div>
-                    <div class="text-[11px] text-gray-600 -mt-1">UPATeCO</div>
-                    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-0.5">
-                        <strong class="lang-es">Tec. Universitaria en Desarrollo de Software</strong>
-                        <strong class="lang-en hidden">Tech. Degree in Software Development</strong>
-                        <span class="text-[11px] text-gray-500 font-medium whitespace-nowrap">2022 – 2025</span>
-                    </div>
-                    <div class="text-[11px] text-gray-600 -mt-1">UPATecO</div>
-                    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-0.5">
-                        <strong class="lang-es">Ingeniería en Telecomunicaciones</strong>
-                        <strong class="lang-en hidden">Telecommunications Engineering</strong>
-                        <span class="text-[11px] text-gray-500 font-medium whitespace-nowrap">2012 – 2022</span>
-                    </div>
-                    <div class="text-[11px] text-gray-600 -mt-1">UCASAL (Universidad Católica de Salta)</div>
-                </div>
-            </section>
-
-            <!-- HABILIDADES TÉCNICAS Y IDIOMAS -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <section aria-labelledby="habilidades-heading" class="avoid-break">
-                    <h3 id="habilidades-heading" class="text-sm font-bold text-gray-900 uppercase tracking-wide border-l-4 border-blue-600 pl-2 mb-1.5">
-                        <span class="lang-es">Habilidades Técnicas</span>
-                        <span class="lang-en hidden">Technical Skills</span>
+                <!-- Perfil -->
+                <section class="mb-5 avoid-break">
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wide border-l-4 border-emerald-500 pl-2 mb-2">
+                        <span class="lang-es">Perfil Profesional</span>
+                        <span class="lang-en hidden">Professional Profile</span>
                     </h3>
-                    <ul class="list-disc list-outside text-gray-700 text-[12px] leading-snug ml-4 space-y-0.5">
-                        <li><strong class="lang-es">Análisis de Datos & IA:</strong><strong class="lang-en hidden">Data Analysis & AI:</strong> Python, SQL, PostgreSQL, Power BI, Looker Studio, ETL, Machine Learning.</li>
-                        <li><strong class="lang-es">Infraestructura:</strong><strong class="lang-en hidden">Infrastructure:</strong> 5G Networks, Mimosa, Mikrotik, OCI.</li>
-                        <li><strong class="lang-es">Sistemas:</strong><strong class="lang-en hidden">Systems:</strong> JIRA, SAP, Salesforce, Advanced Excel, Git.</li>
-                        <li><strong class="lang-es">Metodologías:</strong><strong class="lang-en hidden">Methodologies:</strong> Scrum, Data Governance.</li>
-                    </ul>
+                    <div class="lang-es text-slate-300 text-justify leading-snug text-[13px]">
+                        Ingeniera en Telecomunicaciones con experiencia en redes, infraestructura, análisis de datos y desarrollo de software. Trabajo con Python, SQL, Power BI y Looker Studio, combinando mi base técnica con una fuerte orientación hacia los datos y la automatización. Mi recorrido comenzó en el terreno realizando soporte y despliegues de redes en zonas urbanas, rurales y de alta complejidad. Posteriormente, incorporé herramientas analíticas en Guayerd, participando en proyectos que abarcaron desde la limpieza y transformación de datos hasta la construcción de dashboards. Actualmente, integro esta experiencia con el desarrollo de software como voluntaria en Undood, donde diseño, modelo y documento bases de datos relacionales (PostgreSQL) enfocadas en la escalabilidad. Mi principal interés está en conectar infraestructura, datos e IA, buscando transformar procesos técnicos en soluciones más eficientes y automatizadas.
+                    </div>
+                    <div class="lang-en hidden text-slate-300 text-justify leading-snug text-[13px]">
+                        Telecommunications Engineer with experience in networks, infrastructure, data analysis, and software development. I work with Python, SQL, Power BI, and Looker Studio, combining my technical background with a strong data-driven orientation. My path began in the field, providing support and deploying networks in urban, rural, and high-complexity areas. I later added analytical tools at Guayerd, working on projects ranging from data cleaning and transformation to building dashboards for decision-making. I now combine that experience with software development as a volunteer at Undood, where I design, model, and document relational databases (PostgreSQL) focused on scalability. My main interest is connecting infrastructure, data, and AI, aiming to turn technical processes into more efficient, automated solutions aligned with business needs.
+                    </div>
                 </section>
-                <section aria-labelledby="idiomas-heading" class="avoid-break">
-                    <h3 id="idiomas-heading" class="text-sm font-bold text-gray-900 uppercase tracking-wide border-l-4 border-blue-600 pl-2 mb-1.5">
-                        <span class="lang-es">Idiomas</span>
-                        <span class="lang-en hidden">Languages</span>
+
+                <!-- Experiencia -->
+                <section class="mb-5">
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wide border-l-4 border-emerald-500 pl-2 mb-3">
+                        <span class="lang-es">Experiencia Laboral</span>
+                        <span class="lang-en hidden">Work Experience</span>
                     </h3>
-                    <ul class="list-disc list-outside text-gray-700 text-[12px] leading-snug ml-4 space-y-1">
-                        <li><strong>Inglés - Nivel B2</strong> <span class="text-gray-500">(IT Consulting Expert, Euroinnova)</span></li>
-                        <li><strong class="lang-es">Español</strong><strong class="lang-en hidden">Spanish</strong> <span class="text-gray-500"><span class="lang-es">Nativo.</span><span class="lang-en hidden">Native.</span></span></li>
+
+                    <article class="mb-3 avoid-break">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-0.5 gap-0.5">
+                            <h4 class="text-[13px] font-bold text-white">
+                                <span class="lang-es">Desarrolladora de Software (Voluntariado)</span>
+                                <span class="lang-en hidden">Software Developer (Volunteer)</span>
+                                <span class="text-emerald-400 font-semibold text-[11px]"> — Undood Argentina</span>
+                            </h4>
+                            <span class="text-[11px] font-semibold text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full whitespace-nowrap">
+                                <span class="lang-es">Abr 2026 - Presente</span>
+                                <span class="lang-en hidden">Apr 2026 - Present</span>
+                            </span>
+                        </div>
+                        <ul class="list-disc list-outside text-slate-300 text-[12px] leading-snug ml-4 lang-es space-y-0.5">
+                            <li><strong class="text-white">Diseñé y modelé</strong> la estructura de bases de datos relacionales utilizando PostgreSQL, enfocándome en asegurar la escalabilidad del sistema a largo plazo.</li>
+                            <li><strong class="text-white">Elaboré documentación técnica exhaustiva</strong> sobre estructuras de datos y flujos del sistema para estandarizar el trabajo y prevenir cuellos de botella en el equipo de desarrollo.</li>
+                        </ul>
+                        <ul class="list-disc list-outside text-slate-300 text-[12px] leading-snug ml-4 lang-en hidden space-y-0.5">
+                            <li><strong class="text-white">Designed and modeled</strong> the relational database structure using PostgreSQL, focused on ensuring the system's long-term scalability.</li>
+                            <li><strong class="text-white">Produced thorough technical documentation</strong> of data structures and system flows to standardize work and prevent bottlenecks in the development team.</li>
+                        </ul>
+                    </article>
+
+                    <article class="mb-3 avoid-break">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-0.5 gap-0.5">
+                            <h4 class="text-[13px] font-bold text-white">
+                                <span class="lang-es">Analista de Datos</span>
+                                <span class="lang-en hidden">Data Analyst</span>
+                                <span class="text-emerald-400 font-semibold text-[11px]"> — Guayerd</span>
+                            </h4>
+                            <span class="text-[11px] font-semibold text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full whitespace-nowrap">
+                                <span class="lang-es">Ago 2024 – Nov 2024</span>
+                                <span class="lang-en hidden">Aug 2024 – Nov 2024</span>
+                            </span>
+                        </div>
+                        <ul class="list-disc list-outside text-slate-300 text-[12px] leading-snug ml-4 lang-es space-y-0.5">
+                            <li><strong class="text-white">Desarrollé procesos de ETL</strong> utilizando Python y SQL para recopilar, limpiar y analizar grandes volúmenes de datasets complejos, logrando identificar inconsistencias y optimizar la calidad de las fuentes.</li>
+                            <li><strong class="text-white">Preparé análisis y visualizaciones interactivas</strong> en Power BI y Looker Studio, traduciendo métricas operativas críticas en <em>insights</em> directos para la toma de decisiones gerenciales.</li>
+                            <li><strong class="text-white">Implementé herramientas de IA</strong> bajo metodologías ágiles para automatizar procesos de transformación de datos.</li>
+                        </ul>
+                        <ul class="list-disc list-outside text-slate-300 text-[12px] leading-snug ml-4 lang-en hidden space-y-0.5">
+                            <li><strong class="text-white">Built ETL processes</strong> using Python and SQL to collect, clean, and analyze large volumes of complex datasets, identifying inconsistencies and improving source data quality.</li>
+                            <li><strong class="text-white">Prepared interactive analysis and visualizations</strong> in Power BI and Looker Studio, turning critical operational metrics into direct insights for management decision-making.</li>
+                            <li><strong class="text-white">Implemented AI tools</strong> under agile methodologies to automate data transformation processes.</li>
+                        </ul>
+                    </article>
+
+                    <article class="mb-3 avoid-break">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-0.5 gap-0.5">
+                            <h4 class="text-[13px] font-bold text-white">
+                                <span class="lang-es">Soporte Técnico Especializado</span>
+                                <span class="lang-en hidden">Specialized Technical Support</span>
+                                <span class="text-emerald-400 font-semibold text-[11px]"> — ITeDA</span>
+                            </h4>
+                            <span class="text-[11px] font-semibold text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full whitespace-nowrap">Mar 2024 – Jun 2024</span>
+                        </div>
+                        <ul class="list-disc list-outside text-slate-300 text-[12px] leading-snug ml-4 space-y-0.5">
+                            <li class="lang-es"><strong class="text-white">Ejecuté tareas de gestión técnica y mantenimiento preventivo</strong> de infraestructura crítica, operando dentro de entornos multiculturales y de alta complejidad.</li>
+                            <li class="lang-en hidden"><strong class="text-white">Executed technical management and preventive maintenance tasks</strong> for critical infrastructure, operating within multicultural and high-complexity environments.</li>
+                            <li class="lang-es"><strong class="text-white">Implementé la sistematización de controles</strong> mediante la elaboración de planillas administrativas, asegurando el rigor técnico en un contexto de variables ambientales exigentes.</li>
+                            <li class="lang-en hidden"><strong class="text-white">Implemented control systematization</strong> through the development of administrative spreadsheets, ensuring technical rigor in a context of demanding environmental variables.</li>
+                        </ul>
+                    </article>
+
+                    <article class="avoid-break">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-0.5 gap-0.5">
+                            <h4 class="text-[13px] font-bold text-white">
+                                <span class="lang-es">Soporte Técnico IT & Redes</span>
+                                <span class="lang-en hidden">IT & Network Technical Support</span>
+                                <span class="text-emerald-400 font-semibold text-[11px]"> — TECNOA S.R.L</span>
+                            </h4>
+                            <span class="text-[11px] font-semibold text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full whitespace-nowrap">Feb 2021 – Oct 2022</span>
+                        </div>
+                        <ul class="list-disc list-outside text-slate-300 text-[12px] leading-snug ml-4 space-y-0.5">
+                            <li class="lang-es"><strong class="text-white">Optimicé y configuré enlaces de red</strong> (incluyendo equipamiento especializado como Mimosa y Mikrotik) para resolver los requerimientos operativos de los usuarios.</li>
+                            <li class="lang-en hidden"><strong class="text-white">Optimized and configured network links</strong> (including specialized equipment such as Mimosa and Mikrotik) to resolve users' operational requirements.</li>
+                            <li class="lang-es"><strong class="text-white">Establecí canales de comunicación técnica formal</strong> para el <em>troubleshooting</em> y la coordinación eficiente de tareas entre distintos equipos de infraestructura.</li>
+                            <li class="lang-en hidden"><strong class="text-white">Established formal technical communication channels</strong> for <em>troubleshooting</em> and efficient task coordination between different infrastructure teams.</li>
+                        </ul>
+                    </article>
+                </section>
+
+                <!-- Educación -->
+                <section class="mb-5 avoid-break">
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wide border-l-4 border-emerald-500 pl-2 mb-2">
+                        <span class="lang-es">Educación Universitaria</span>
+                        <span class="lang-en hidden">University Education</span>
+                    </h3>
+                    <div class="space-y-1.5 text-slate-300 text-[12px]">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-0.5">
+                            <strong class="text-white lang-es">Tec. Universitaria en Gestión de Infraestructura Cloud y DevOps</strong>
+                            <strong class="text-white lang-en hidden">Tech. Degree in Cloud Infrastructure & DevOps Management</strong>
+                            <span class="text-[11px] text-slate-400 whitespace-nowrap"><span class="lang-es">2026 - En curso</span><span class="lang-en hidden">2026 - Ongoing</span></span>
+                        </div>
+                        <div class="text-[11px] text-slate-500 -mt-1">UPATeCO</div>
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-0.5">
+                            <strong class="text-white lang-es">Tec. Universitaria en Desarrollo de Software</strong>
+                            <strong class="text-white lang-en hidden">Tech. Degree in Software Development</strong>
+                            <span class="text-[11px] text-slate-400 whitespace-nowrap">2022 – 2025</span>
+                        </div>
+                        <div class="text-[11px] text-slate-500 -mt-1">UPATecO</div>
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-0.5">
+                            <strong class="text-white lang-es">Ingeniería en Telecomunicaciones</strong>
+                            <strong class="text-white lang-en hidden">Telecommunications Engineering</strong>
+                            <span class="text-[11px] text-slate-400 whitespace-nowrap">2012 – 2022</span>
+                        </div>
+                        <div class="text-[11px] text-slate-500 -mt-1">UCASAL (Universidad Católica de Salta)</div>
+                    </div>
+                </section>
+
+                <!-- Grid Habilidades + Idiomas -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                    <section class="avoid-break">
+                        <h3 class="text-sm font-bold text-white uppercase tracking-wide border-l-4 border-emerald-500 pl-2 mb-2">
+                            <span class="lang-es">Habilidades Técnicas</span>
+                            <span class="lang-en hidden">Technical Skills</span>
+                        </h3>
+                        <ul class="list-disc list-outside text-slate-300 text-[12px] leading-snug ml-4 space-y-0.5">
+                            <li><strong class="text-white lang-es">Análisis de Datos & IA:</strong><strong class="text-white lang-en hidden">Data Analysis & AI:</strong> Python, SQL, PostgreSQL, Power BI, Looker Studio, ETL, Machine Learning.</li>
+                            <li><strong class="text-white lang-es">Infraestructura:</strong><strong class="text-white lang-en hidden">Infrastructure:</strong> 5G Networks, Mimosa, Mikrotik, OCI.</li>
+                            <li><strong class="text-white lang-es">Sistemas:</strong><strong class="text-white lang-en hidden">Systems:</strong> JIRA, SAP, Salesforce, Advanced Excel, Git.</li>
+                            <li><strong class="text-white lang-es">Metodologías:</strong><strong class="text-white lang-en hidden">Methodologies:</strong> Scrum, Data Governance.</li>
+                        </ul>
+                    </section>
+                    <section class="avoid-break">
+                        <h3 class="text-sm font-bold text-white uppercase tracking-wide border-l-4 border-emerald-500 pl-2 mb-2">
+                            <span class="lang-es">Idiomas</span>
+                            <span class="lang-en hidden">Languages</span>
+                        </h3>
+                        <ul class="list-disc list-outside text-slate-300 text-[12px] leading-snug ml-4 space-y-1">
+                            <li><strong class="text-white">Inglés - Nivel B2</strong> <span class="text-slate-500">(IT Consulting Expert, Euroinnova)</span></li>
+                            <li><strong class="text-white lang-es">Español</strong><strong class="text-white lang-en hidden">Spanish</strong> <span class="text-slate-500"><span class="lang-es">Nativo.</span><span class="lang-en hidden">Native.</span></span></li>
+                        </ul>
+                    </section>
+                </div>
+
+                <!-- Certificaciones -->
+                <section class="avoid-break">
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wide border-l-4 border-emerald-500 pl-2 mb-2">
+                        <span class="lang-es">Certificaciones Destacadas</span>
+                        <span class="lang-en hidden">Featured Certifications</span>
+                    </h3>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-0.5 text-slate-300 text-[12px] list-disc list-outside ml-4">
+                        <li><strong class="text-white">Database Design and Basic SQL in PostgreSQL</strong> (U. of Michigan, Abr 2026)</li>
+                        <li><strong class="text-white">Data Analytics</strong> (Telecom, Sep 2025)</li>
+                        <li><strong class="text-white">Oracle Cloud Infrastructure (OCI)</strong> (Oracle, Jul 2025)</li>
+                        <li><strong class="text-white">HCIA - 5G Training</strong> (Huawei, Ago 2024)</li>
+                        <li><strong class="text-white">HCIA - AI Training</strong> (Huawei, Jul 2024)</li>
+                        <li><strong class="text-white">Data Engineer</strong> (Platzi, May 2024)</li>
+                        <li><strong class="text-white lang-es">Adm. de Requerimientos para Proyectos de TIC</strong><strong class="text-white lang-en hidden">Requirements Management for ICT Projects</strong> (UNAM, Nov 2022)</li>
+                        <li><strong class="text-white">Certificación Mimosa Networks, PTP + PTMP</strong> (Mimosa, Nov 2020)</li>
                     </ul>
                 </section>
             </div>
+        </div>
+    </section>
 
-            <!-- CERTIFICACIONES -->
-            <section aria-labelledby="certificaciones-heading" class="avoid-break">
-                <h3 id="certificaciones-heading" class="text-sm font-bold text-gray-900 uppercase tracking-wide border-l-4 border-blue-600 pl-2 mb-2">
-                    <span class="lang-es">Certificaciones Destacadas</span>
-                    <span class="lang-en hidden">Featured Certifications</span>
-                </h3>
-                <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-0.5 text-gray-700 text-[12px] list-disc list-outside ml-4">
-                    <li><strong>Database Design and Basic SQL in PostgreSQL</strong> (U. of Michigan, Abr 2026)</li>
-                    <li><strong>Data Analytics</strong> (Telecom, Sep 2025)</li>
-                    <li><strong>Oracle Cloud Infrastructure (OCI)</strong> (Oracle, Jul 2025)</li>
-                    <li><strong>HCIA - 5G Training</strong> (Huawei, Ago 2024)</li>
-                    <li><strong>HCIA - AI Training</strong> (Huawei, Jul 2024)</li>
-                    <li><strong>Data Engineer</strong> (Platzi, May 2024)</li>
-                    <li><strong class="lang-es">Adm. de Requerimientos para Proyectos de TIC</strong><strong class="lang-en hidden">Requirements Management for ICT Projects</strong> (UNAM, Nov 2022)</li>
-                    <li><strong>Certificación Mimosa Networks, PTP + PTMP</strong> (Mimosa, Nov 2020)</li>
-                </ul>
-            </section>
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16 animate-fade-in-up">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-3">
+                    <span class="lang-es">Proyectos Destacados</span>
+                    <span class="lang-en hidden">Featured Projects</span>
+                </h2>
+                <p class="text-slate-500 max-w-2xl mx-auto">
+                    <span class="lang-es">Una selección de proyectos que combinan infraestructura, datos e inteligencia artificial.</span>
+                    <span class="lang-en hidden">A selection of projects combining infrastructure, data, and artificial intelligence.</span>
+                </p>
+                <div class="w-16 h-1 bg-gradient-to-r from-emerald-500 to-amber-400 mx-auto rounded-full mt-4"></div>
+            </div>
 
-            <!-- FOOTER -->
-            <footer class="mt-6 pt-4 border-t-2 border-gray-200 text-center no-print">
-                <p class="text-xs font-semibold text-gray-700">Cloud-Ready Ops | Final Project</p>
-                <p class="text-[10px] text-gray-500 mb-2">Vanina Candelaria Sulca | 2026</p>
-                <div class="flex justify-center gap-4 text-xs">
-                    <a href="https://github.com/VauroraS" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a>
-                    <a href="https://www.linkedin.com/in/vaninacsulca" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors"><i class="fa-brands fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- Project 1: Data Analysis -->
+                <article class="glass rounded-2xl overflow-hidden card-hover group">
+                    <div class="h-48 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 2px 2px, rgba(52,211,153,0.15) 1px, transparent 0); background-size: 24px 24px;"></div>
+                        <i class="fa-solid fa-chart-line text-6xl text-emerald-400/70 group-hover:scale-110 transition-transform duration-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">DATA ANALYSIS</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/25">POWER BI</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
+                            <span class="lang-es">Dashboard de Gestión — Potenciar Solidario ONG</span>
+                            <span class="lang-en hidden">Management Dashboard — Potenciar Solidario NGO</span>
+                        </h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            <span class="lang-es">Transformación de datos de gestión en información visual y accionable mediante un dashboard interactivo para el análisis de donantes, proveedores, gastos y KPIs.</span>
+                            <span class="lang-en hidden">Transformation of management data into visual and actionable information through an interactive dashboard for the analysis of donors, suppliers, expenses, and KPIs.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">Looker Studio</span>
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">SQL</span>
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">Excel</span>
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">Data Visualization</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-800/60">
+                            <div class="flex items-center gap-3 text-xs text-slate-500">
+                                <span><i class="fa-regular fa-calendar mr-1"></i> 2024</span>
+                                <span><i class="fa-regular fa-clock mr-1"></i> 3 meses</span>
+                            </div>
+                            <a href="https://lookerstudio.google.com/reporting/84453376-10d5-45a7-bccc-056044639d91/page/UvRCE" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 text-sm font-semibold flex items-center gap-1 transition-colors">
+                                <span class="lang-es">Ver dashboard</span>
+                                <span class="lang-en hidden">View dashboard</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2: Data Science -->
+                <article class="glass rounded-2xl overflow-hidden card-hover group">
+                    <div class="h-48 bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 2px 2px, rgba(167,139,250,0.15) 1px, transparent 0); background-size: 24px 24px;"></div>
+                        <i class="fa-solid fa-brain text-6xl text-violet-400/70 group-hover:scale-110 transition-transform duration-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-violet-500/15 text-violet-300 border border-violet-500/25">DATA SCIENCE</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-500/15 text-orange-300 border border-orange-500/25">ML</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-violet-400 transition-colors">
+                            <span class="lang-es">Análisis de Deserción Laboral</span>
+                            <span class="lang-en hidden">Employee Attrition Analysis</span>
+                        </h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            <span class="lang-es">Análisis exploratorio de datos para identificar los principales factores asociados a la deserción laboral, detectando patrones relacionados con horas extras, satisfacción, edad, ingresos y antigüedad.</span>
+                            <span class="lang-en hidden">Exploratory data analysis to identify the main factors associated with employee turnover, detecting patterns related to overtime, satisfaction, age, income, and tenure.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">Python</span>
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">Pandas</span>
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">NumPy</span>
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">Matplotlib</span>
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">Seaborn</span>
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">EDA</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-800/60">
+                            <div class="flex items-center gap-3 text-xs text-slate-500">
+                                <span><i class="fa-regular fa-calendar mr-1"></i> 2025</span>
+                                <span><i class="fa-regular fa-clock mr-1"></i> 4 meses</span>
+                            </div>
+                            <a href="https://colab.research.google.com/drive/1tMtZIRYWY_damKkePn9W6CH8QxBExn-c?usp=sharing" target="_blank" rel="noopener noreferrer" class="text-violet-400 hover:text-violet-300 text-sm font-semibold flex items-center gap-1 transition-colors">
+                                <span class="lang-es">Ver notebook</span>
+                                <span class="lang-en hidden">View notebook</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3: Wireless Networks -->
+                <article class="glass rounded-2xl overflow-hidden card-hover group">
+                    <div class="h-48 bg-gradient-to-br from-amber-500/10 to-orange-500/10 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 2px 2px, rgba(251,191,36,0.15) 1px, transparent 0); background-size: 24px 24px;"></div>
+                        <i class="fa-solid fa-tower-broadcast text-6xl text-amber-400/70 group-hover:scale-110 transition-transform duration-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/25">NETWORKS</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">5G</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
+                            <span class="lang-es">Diseño de Red Inalámbrica Rural — Quebrada del Toro</span>
+                            <span class="lang-en hidden">Rural Wireless Network Design — Quebrada del Toro</span>
+                        </h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            <span class="lang-es">Diseño de una red inalámbrica para mejorar la conectividad en localidades rurales, evaluando topología, radioenlaces, frecuencia, potencia, rendimiento, seguridad y costos.</span>
+                            <span class="lang-en hidden">Design of a wireless network to improve connectivity in rural localities, evaluating topology, radio links, frequency, power, performance, security, and costs.</span>
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">Mimosa</span>
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">Cambium</span>
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">MikroTik</span>
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">ALGcom</span>
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">Wireless</span>
+                            <span class="text-xs text-slate-500 bg-slate-800/60 px-2 py-1 rounded">Radioenlaces</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-800/60">
+                            <div class="flex items-center gap-3 text-xs text-slate-500">
+                                <span><i class="fa-regular fa-calendar mr-1"></i> 2021-2022</span>
+                                <span><i class="fa-regular fa-clock mr-1"></i> 18 meses</span>
+                            </div>
+                            <a href="https://bibliotecas.ucasal.edu.ar/opac_css/doc_num_data.php?explnum_id=3066" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:text-amber-300 text-sm font-semibold flex items-center gap-1 transition-colors">
+                                <span class="lang-es">Ver documento</span>
+                                <span class="lang-en hidden">View document</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20" style="background-color: #080f0c;">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="animate-fade-in-up">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4">
+                    <span class="lang-es">¿Trabajamos juntos?</span>
+                    <span class="lang-en hidden">Let's work together?</span>
+                </h2>
+                <p class="text-slate-500 mb-10 max-w-xl mx-auto">
+                    <span class="lang-es">Estoy abierta a oportunidades en análisis de datos, ciencia de datos, infraestructura cloud y redes de telecomunicaciones.</span>
+                    <span class="lang-en hidden">I'm open to opportunities in data analysis, data science, cloud infrastructure, and telecommunications networks.</span>
+                </p>
+
+                <div class="glass rounded-2xl p-8 max-w-lg mx-auto pulse-glow">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 text-left">
+                        <a href="mailto:svaninac@gmail.com" class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800/70 transition-colors group border border-slate-700/30">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-500/15 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500">Email</div>
+                                <div class="text-sm font-medium text-white">svaninac@gmail.com</div>
+                            </div>
+                        </a>
+                        <a href="tel:+543876848432" class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800/70 transition-colors group border border-slate-700/30">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-500/15 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500">
+                                    <span class="lang-es">Teléfono</span>
+                                    <span class="lang-en hidden">Phone</span>
+                                </div>
+                                <div class="text-sm font-medium text-white">+54 387 6848432</div>
+                            </div>
+                        </a>
+                        <a href="https://www.linkedin.com/in/vaninacsulca" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800/70 transition-colors group border border-slate-700/30">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-500/15 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                                <i class="fa-brands fa-linkedin"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500">LinkedIn</div>
+                                <div class="text-sm font-medium text-white">/in/vaninacsulca</div>
+                            </div>
+                        </a>
+                        <a href="https://github.com/VauroraS" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800/70 transition-colors group border border-slate-700/30">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-500/15 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                                <i class="fa-brands fa-github"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500">GitHub</div>
+                                <div class="text-sm font-medium text-white">@VauroraS</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="text-xs text-slate-600">
+                        <i class="fa-solid fa-location-dot mr-1"></i> Salta, Argentina
+                    </div>
                 </div>
-            </footer>
+            </div>
+        </div>
+    </section>
 
-        </main>
-    </div>
+    <!-- Footer -->
+    <footer class="py-8 border-t border-slate-800/60 text-center no-print">
+        <p class="text-sm text-slate-600">
+            <span class="lang-es">Diseñado y desarrollado por</span>
+            <span class="lang-en hidden">Designed and developed by</span>
+            <span class="gradient-text font-semibold"> Vanina Sulca</span> | 2026
+        </p>
+        <p class="text-xs text-slate-700 mt-1">Cloud-Ready Ops | Final Project</p>
+    </footer>
 
     <script>
         function setLanguage(lang) {
