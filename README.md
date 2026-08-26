@@ -11,7 +11,7 @@ The architecture is divided into three main layers:
 | Layer        | Component                                               | Purpose                                                   |
 | ------------ | ------------------------------------------------------- | --------------------------------------------------------- |
 | **Network**  | VPC, Public Subnet, Private Subnet, Firewall, Cloud NAT | Provides network connectivity, segmentation, and security |
-| **Compute**  | Ubuntu Web Server + Nginx                               | Hosts and serves the web application                      |
+| **Application**  | Ubuntu Web Server + Nginx                           | Hosts and serves the web application                      |
 | **Database** | Ubuntu Database Server + MySQL                          | Stores and manages application data                       |
 
 ---
